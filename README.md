@@ -38,11 +38,22 @@ Get access token with
 
 ```
 curl -k -X 'POST' \
-  'https://<IP OR DNS OF VBR SERVER:9419/api/oauth2/token' \
+  'https://192.168.169.185:9419/api/oauth2/token' \
   -H 'accept: application/json' \
   -H 'x-api-version: 1.1-rev2' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -d 'grant_type=password&username=<your_username>&password=<your_password>&refresh_token=&code=&use_short_term_refresh=&vbr_token='
+  -d 'grant_type=password&username=Administrator&password=Passw0rd999!&refresh_token=&code=&use_short_term_refresh=&vbr_token=' \
+  | jq -r '.access_token'
+```
+
+By then taking the access_token output from the above command you can add this to the Bearer
+
+```
+curl -k -X 'GET' \
+  'https://192.168.169.185:9419/api/v1/jobs' \
+  -H 'accept: application/json' \
+  -H 'x-api-version: 1.1-rev2' \
+  -H 'Authorization: Bearer <PASTE ABOVE OUTPUT>'
 ```
 
 
